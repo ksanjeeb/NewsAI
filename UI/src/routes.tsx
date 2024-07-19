@@ -1,18 +1,13 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Dashboard from './pages/home/dashboard';
 import ProtectedRoute from './protected';
-import Login from './pages/auth/login';
-import Signup from './pages/auth/signup';
-import Playground from './pages/home/playground';
-import Home from './pages/home/home';
-import Settings from './pages/home/settings';
+
 function AppRoutes() {
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <ProtectedRoute element={<Home />} />,
+      element: <ProtectedRoute element={< div/>} />,
       children: [
         {
           path: "/",
