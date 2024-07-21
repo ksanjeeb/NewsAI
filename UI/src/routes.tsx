@@ -13,7 +13,7 @@ function AppRoutes() {
     //   children: [],
     // },
     {
-      path: "/news",
+      path: "/",
       errorElement:<Error />,
       children: [
         {
