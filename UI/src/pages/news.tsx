@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { config } from "@/config";
 import { useStore } from "@/lib/store-proveider";
 import { formatDate } from "@/lib/utils";
 import { LoaderCircle, Sparkles } from "lucide-react";
@@ -29,7 +30,7 @@ function NewsList() {
   const getNewsList = async (searchQuery: string, append: boolean = false) => {
     try {
       setLoading(true);
-      const response = await fetch(process.env.API_ENDPOINT +`/news?page=${append ? page + 1 : page}${searchQuery ? `&topic=${searchQuery}` : ''}`);
+      const response = await fetch(config.api_url + `/news?page=${append ? page + 1 : page}${searchQuery ? `&topic=${searchQuery}` : ''}`);
       if (!response.ok) {
         throw new Error('Failed to fetch news');
       }

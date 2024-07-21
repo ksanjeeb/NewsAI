@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { config } from "@/config";
 import { useStore } from "@/lib/store-proveider";
 import { cn, formatDate } from "@/lib/utils";
 import { ChevronLeft, Loader2 } from "lucide-react";
@@ -19,7 +20,7 @@ export default function Summarize() {
   const loadSummarization = async () => {
     try {
       setLoading(true);
-      const response = await fetch(process.env.API_ENDPOINT + `/summarize?url=${state?.data?.post?.url}`);
+      const response = await fetch(config.api_url+ `/summarize?url=${state?.data?.post?.url}`);
       if (!response.ok) {
         throw new Error('Failed to fetch news');
       }
