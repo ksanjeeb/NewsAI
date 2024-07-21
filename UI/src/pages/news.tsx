@@ -93,7 +93,7 @@ function NewsList() {
               NewsAI
             </h1>
             <p className="text-xl text-muted-foreground">
-              This is a news AI website powered by Meta LLMA-7b and NewsAPI.
+              This is a news AI website powered by Groq Llama-7b and NewsAPI.
             </p>
           </div>
           <div className="w-64">
