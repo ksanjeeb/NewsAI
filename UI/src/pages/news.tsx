@@ -29,7 +29,7 @@ function NewsList() {
   const getNewsList = async (searchQuery: string, append: boolean = false) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3000/api/v1/news?page=${append ? page + 1 : page}${searchQuery ? `&topic=${searchQuery}` : ''}`);
+      const response = await fetch(process.env.API_ENDPOINT +`/news?page=${append ? page + 1 : page}${searchQuery ? `&topic=${searchQuery}` : ''}`);
       if (!response.ok) {
         throw new Error('Failed to fetch news');
       }

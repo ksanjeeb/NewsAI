@@ -1,5 +1,5 @@
 import express from 'express';
-import newsRoute from './routes/newsRoute.js'; 
+import newsRoute from './routes/newsRoute.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -14,9 +14,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
-app.use('/api/v1', newsRoute);
+app.use(express.urlencoded({ extended: true }));
+app.use('/v1', newsRoute);
 
 app.listen(PORT, (error) => {
     if (!error) {

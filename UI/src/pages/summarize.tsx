@@ -19,7 +19,7 @@ export default function Summarize() {
   const loadSummarization = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3000/api/v1/summarize?url=${state?.data?.post?.url}`);
+      const response = await fetch(process.env.API_ENDPOINT + `/summarize?url=${state?.data?.post?.url}`);
       if (!response.ok) {
         throw new Error('Failed to fetch news');
       }
