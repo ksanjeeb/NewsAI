@@ -54,7 +54,7 @@ This project consists of a backend server and a frontend UI application. The bac
    ```
 
 4. **Verify Backend URL Configuration:**
-   - Open the `config.ts` file.
+   - Open the `config.ts` file we can also do the same in `.env` as well
    - Ensure that the backend URL is correctly configured to point to `http://localhost:3000`.
 
 ### Running the Application
