@@ -1,30 +1,71 @@
-# React + TypeScript + Vite
+```markdown
+# NEWSAI (NewsAPI + Groq + Langchain)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project consists of a backend server and a frontend UI application. The backend runs on Node.js and Express, while the frontend is built using React.
 
-Currently, two official plugins are available:
+## Prerequisites
+- Node.js installed on your machine
+- npm (Node Package Manager)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup Instructions
 
-## Expanding the ESLint configuration
+### Backend Setup
+1. **Navigate to the Server Directory:**
+   ```sh
+   cd /server
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. **Install Dependencies:**
+   ```sh
+   npm install
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+3. **Configure Environment Variables:**
+   - Go to the `ENV-EXAMPLE.txt` file.
+   - Add your secret keys and rename the file to `.env`.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+4. **Install Nodemon Globally (Optional but Recommended):**
+   ```sh
+   npm install -g nodemon
+   ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+5. **Start the Server:**
+   ```sh
+   npm run start
+   ```
+
+   The server will be up and running at `http://localhost:3000`.
+
+### Frontend Setup
+1. **Navigate to the UI Directory:**
+   ```sh
+   cd /UI
+   ```
+
+2. **Install Dependencies:**
+   ```sh
+   npm install
+   ```
+
+3. **Start the UI Application:**
+   ```sh
+   npm run start
+   ```
+
+4. **Verify Backend URL Configuration:**
+   - Open the `config.ts` file.
+   - Ensure that the backend URL is correctly configured to point to `http://localhost:3000`.
+
+### Running the Application
+- The backend server will be accessible at `http://localhost:3000`.
+- The frontend application will typically run on `http://localhost:5173` or another port if specified in your configuration.
+
+## Troubleshooting
+- If you encounter any issues with dependencies, try deleting the `node_modules` folder and the `package-lock.json` file, then run `npm install` again.
+- Ensure that your `.env` file is correctly configured with all necessary environment variables.
+
+
+
+
+This README provides a clear and structured guide for setting up and running the project, ensuring that developers can quickly get started with the backend and frontend components.
