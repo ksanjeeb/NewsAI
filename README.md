@@ -1,4 +1,4 @@
-```markdown
+
 # NEWSAI (NewsAPI + Groq + Langchain)
 
 ## Overview
