@@ -1,102 +1,106 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useStore } from "@/lib/store-proveider";
 import { cn, formatDate } from "@/lib/utils";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
-interface Author {
-  _id: string;
-  twitter: string;
-  avatar: string;
-  title: string;
-}
 
-interface Post {
-  date: string;
-  title: string;
-  image?: string;
-  body: {
-    code: string;
-  };
-}
 
-interface SummarizeProps {
-  params: {
-    post: Post;
-    authors: Author[];
-  };
-}
 
-export default function Summarize({ params }: SummarizeProps) {
-  const { post, authors } = params;
+
+export default function Summarize() {
+  const { state } = useStore();
+  const [loading, setLoading] = useState(false);
+  const [summarization, setSummarization] = useState("")
+  const loadSummarization = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`http://localhost:3000/api/v1/summarize?url=${state?.data?.post?.url}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch news');
+      }
+      const data = await response.json();
+      setSummarization(data?.summary)
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err?.message || "Failed.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadSummarization()
+  }, []);
+
 
   return (
-    <article className="container relative max-w-3xl py-6 lg:py-10">
-      <a
-        href="/news"
-        className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "absolute left-[-200px] top-14 hidden xl:inline-flex"
-        )}
-      >
-        <ChevronLeft className="mr-2 h-4 w-4" />
-        See all posts
-      </a>
-      <div>
-        {post.date && (
-          <time
-            dateTime={post.date}
-            className="block text-sm text-muted-foreground"
+    <article className="container relative max-w-5xl py-6 lg:py-10">
+      {state?.data.post && <div>
+        <div className="flex  flex-row gap-4">
+          <Link
+            to="/news"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "icon" }),
+              "self-center"
+            )}
           >
-            Published on {formatDate(post.date)}
-          </time>
-        )}
-        <h1 className="mt-2 inline-block font-heading text-4xl leading-tight lg:text-5xl">
-          {post.title}
-        </h1>
-        {authors?.length ? (
-          <div className="mt-4 flex space-x-4">
-            {authors.map((author) =>
-              author ? (
-                <a
-                  key={author._id}
-                  href={`https://twitter.com/${author.twitter}`}
-                  className="flex items-center space-x-2 text-sm"
-                >
-                  <img
-                    src={author.avatar}
-                    alt={author.title}
-                    width={42}
-                    height={42}
-                    className="rounded-full bg-white"
-                  />
-                  <div className="flex-1 text-left leading-tight">
-                    <p className="font-medium">{author.title}</p>
-                    <p className="text-[12px] text-muted-foreground">
-                      @{author.twitter}
-                    </p>
-                  </div>
-                </a>
-              ) : null
+            <ChevronLeft className=" h-4 w-4" />
+          </Link>
+          <div className="self-center">
+            {state?.data?.post?.source?.name && (
+              <p className="  text-muted-foreground text-xl font-bold">{state?.data?.post?.source?.name}</p>
+            )}
+            {state?.data.post.publishedAt && (
+              <time
+                dateTime={state?.data?.post.publishedAt}
+                className="block text-sm text-muted-foreground"
+              >
+                Published on {formatDate(state?.data?.post?.publishedAt)}
+              </time>
             )}
           </div>
-        ) : null}
-      </div>
-      {post.image && (
-        <img
-          src={post.image}
-          alt={post.title}
-          width={720}
-          height={405}
-          className="my-8 rounded-md border bg-muted transition-colors"
-        />
-      )}
-      <div>{post.body.code}</div>
-      <hr className="mt-12" />
-      <div className="flex justify-center py-6 lg:py-10">
-        <a href="/news" className={cn(buttonVariants({ variant: "ghost" }))}>
-          <ChevronLeft className="mr-2 h-4 w-4" />
-          See all posts
-        </a>
-      </div>
+        </div>
+
+        <h1 className="mt-2 inline-block font-heading text-2xl font-medium leading-tight lg:text-3xl">
+          {state?.data?.post?.title}
+        </h1>
+
+        <div className="pt-4">
+          {
+            loading ? <div className="space-y-2 ">
+              <div className="flex flex-row gap-2 text-base mb-2"><Loader2 className="w-6 h-6 animate-spin" />Generating summary...</div>
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4  w-full" />
+              <Skeleton className="h-4 w-2/3" />
+            </div> : summarization ?
+              <p className="text-bold text-xl text-muted-foreground  ">{summarization}
+              </p> : <p className="text-muted-foreground text-lg font-semibold">No summary</p>
+          }
+        </div>
+        {state?.data?.post?.urlToImage && (
+          <img
+            src={state?.data?.post?.urlToImage}
+            alt={state?.data?.post.title}
+            className="my-8 rounded-md border bg-muted transition-colors"
+          />
+        )}
+
+
+        <hr className="mt-12" />
+        <div className="flex justify-center py-6 lg:py-10">
+          <Link to="/news" className={cn(buttonVariants({ variant: "ghost" }))}>
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            See all posts
+          </Link>
+        </div>
+      </div>}
+
     </article>
   );
 }

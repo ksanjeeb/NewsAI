@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "http://localhost:3000/api/v1/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -21,6 +22,7 @@
     "lucide-react": "^0.408.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.24.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
