@@ -44,7 +44,7 @@ export default function Summarize() {
       {state?.data.post && <div>
         <div className="flex  flex-row gap-4">
           <Link
-            to="/news"
+            to="/"
             className={cn(
               buttonVariants({ variant: "outline", size: "icon" }),
               "self-center"
@@ -95,7 +95,7 @@ export default function Summarize() {
 
         <hr className="mt-12" />
         <div className="flex justify-center py-6 lg:py-10">
-          <Link to="/news" className={cn(buttonVariants({ variant: "ghost" }))}>
+          <Link to="/" className={cn(buttonVariants({ variant: "ghost" }))}>
             <ChevronLeft className="mr-2 h-4 w-4" />
             See all posts
           </Link>

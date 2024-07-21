@@ -24,7 +24,7 @@ function NewsList() {
   const handleSummarize = (event: any, data: any) => {
     event.stopPropagation();
     updateData({post: data})
-    navigate("/news/summarize?url=" + encodeURIComponent(data?.url));
+    navigate("/summarize");
   };
 
   const getNewsList = async (searchQuery: string, append: boolean = false) => {
