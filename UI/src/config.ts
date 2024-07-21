@@ -1,3 +1,3 @@
 export const config ={
-  api_url :"http://localhost:3000/v1", //BE PORT
+  api_url :"https://apinewsai.vercel.app/v1", //BE PORT
 }
