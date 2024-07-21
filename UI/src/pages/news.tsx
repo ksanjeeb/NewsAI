@@ -82,7 +82,7 @@ function NewsList() {
       clearTimeout(handler);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [query, loading]);
+  }, [query]);
 
   return (
     <div className="container max-w-5xl my-6 lg:py-10">
