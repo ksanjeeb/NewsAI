@@ -1,0 +1,3 @@
+Change this file name to ".env"
+NEWS_API = ADD KEY
+GROQ_API_KEY = ADD API
