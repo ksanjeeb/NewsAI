@@ -6,7 +6,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 
 export const summarizeAI = async (req, res) => {
     try {
-        const { url } = req.query;
+        const { url } = req?.query;
 
         if (!url) {
             res.send({ message: "Invalid request", status: 400 })
