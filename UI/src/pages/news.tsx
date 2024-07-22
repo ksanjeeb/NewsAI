@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const metadata = {
-  title: "Blog",
+  title: "News",
 };
 
 function NewsList() {
@@ -19,23 +19,28 @@ function NewsList() {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const {updateData} = useStore();
+  const { updateData } = useStore();
 
   const handleSummarize = (event: any, data: any) => {
     event.stopPropagation();
-    updateData({post: data})
+    updateData({ post: data });
     navigate("/summarize");
   };
 
   const getNewsList = async (searchQuery: string, append: boolean = false) => {
     try {
       setLoading(true);
-      const response = await fetch(config.api_url + `/news?page=${append ? page + 1 : page}${searchQuery ? `&topic=${searchQuery}` : ''}`);
+      const response = await fetch(
+        `${config.api_url}/news?page=${append ? page + 1 : 1}${searchQuery ? `&topic=${searchQuery}` : ""}`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch news');
+        throw new Error("Failed to fetch news");
       }
       const data = await response.json();
-      const newArticles: any[] = data.articles || [];
+      if(data?.status !== 200){
+        return toast.error(data?.message || "Failed to retrieve.")
+      }
+      const newArticles: any[] = data?.articles || [];
 
       setPosts((prevPosts) => {
         if (append) {
@@ -47,6 +52,8 @@ function NewsList() {
 
       if (append) {
         setPage((prevPage) => prevPage + 1);
+      } else {
+        setPage(1);
       }
     } catch (err: any) {
       console.error(err);
@@ -66,26 +73,29 @@ function NewsList() {
         getNewsList(query);
       }
     }, 1000);
-
-    const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      const isNearBottom = scrollTop + clientHeight >= scrollHeight - 10;
-
-      if (isNearBottom && !loading) {
-        getNewsList(query, true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
     return () => {
       clearTimeout(handler);
-      window.removeEventListener('scroll', handleScroll);
     };
   }, [query]);
 
+  const handleScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    const isNearBottom = scrollTop + clientHeight >= scrollHeight - 10;
+
+    if (isNearBottom && !loading) {
+      getNewsList(query, true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [query, loading]);
+
   return (
-    <div className="container max-w-5xl my-6 lg:py-10">
+    <div className="container max-w-5xl my-6 lg:py-10 h-screen">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex flex-col lg:flex-row justify-between flex-1 gap-4">
           <div className="space-y-4">
