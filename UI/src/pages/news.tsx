@@ -39,7 +39,7 @@ function NewsList() {
       const data = await response.json();
       if(data?.status !== 200){
         setLoading(false);
-        return toast.error(data?.message || "Failed to retrieve.")
+        return toast.error(data?.error || "Failed to retrieve.")
       }
       const newArticles: any[] = data?.articles || [];
 
