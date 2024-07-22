@@ -1,5 +1,5 @@
 
-# NEWSAI (NewsAPI + Groq + Langchain)
+# NEWSAI (React + Express + NewsAPI + Groq + Langchain)
 
 ## Overview
 This project consists of a backend server and a frontend UI application. The backend runs on Node.js and Express, while the frontend is built using React.
@@ -13,7 +13,7 @@ This project consists of a backend server and a frontend UI application. The bac
 ### Backend Setup
 1. **Navigate to the Server Directory:**
    ```sh
-   cd /server
+   cd /Server
    ```
 
 2. **Install Dependencies:**
