@@ -81,7 +81,7 @@ function NewsList() {
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    const isNearBottom = scrollTop + clientHeight >= scrollHeight - 10;
+    const isNearBottom = scrollTop + clientHeight >= scrollHeight - 5;
 
     if (isNearBottom && !loading) {
       getNewsList(query, true);
