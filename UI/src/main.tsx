@@ -4,6 +4,7 @@ import AppRoutes from './routes.tsx'
 import './index.css'
 import { AuthProvider } from './lib/auth-provider.tsx';
 import { StoreProvider } from './lib/store-proveider.tsx';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -14,5 +15,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <AppRoutes />
       </AuthProvider >
     </StoreProvider>
+    <Toaster/>
   </React.StrictMode>,
 )
